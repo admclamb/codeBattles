@@ -1,0 +1,26 @@
+.nav {
+  width: max-content;
+  padding: 0.5rem;
+  position: absolute;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 600;
+  & a {
+    margin-bottom: 3rem;
+  }
+  & ul {
+    list-style-type: none;
+    padding: 0;
+    & li {
+      &:not(:last-child) {
+        padding-bottom: 1rem;
+      }
+
+      & a {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+  }
+}
