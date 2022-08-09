@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from '../navigation/Navbar/Navbar';
-import styles from './Layout.module.scss';
 type Props = {
   children?: React.ReactNode;
 };
@@ -8,10 +7,12 @@ type Props = {
 const Layout = (props: Props) => {
   const { children } = props;
   return (
-    <main className={styles.main}>
-      <Navbar />
-      {children}
-    </main>
+    <>
+      <header className="p-relative">
+        <Navbar />
+      </header>
+      <main className='main'>{children}</main>
+    </>
   );
 };
 

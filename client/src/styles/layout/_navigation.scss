@@ -1,11 +1,13 @@
-.nav {
-  width: max-content;
+.side-navbar {
+  width: $navbarWidth;
   padding: 0.5rem;
   position: absolute;
   height: 100vh;
   top: 0;
   left: 0;
   z-index: 600;
+  white-space: nowrap;
+  transition:  1s;
   & a {
     margin-bottom: 3rem;
   }
@@ -20,7 +22,19 @@
       & a {
         text-decoration: none;
         color: inherit;
+        
+        & p {
+          display: none;
+        }
       }
     }
+  }
+}
+
+.side-navbar:hover {
+  width: fit-content;
+
+  & ul li a p {
+    display: block;
   }
 }
