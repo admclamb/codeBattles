@@ -1,0 +1,95 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+:root {
+  --color-primary: #779556;
+  --color-primary-darker: #4e6337;
+  --color-secondary: #779556;
+  --background-primary: #fff;
+  --background-secondary: #fff;
+  --background-invert: #e6e6e6;
+  --text-primary: #000;
+  --text-invert: #fff;
+  --border: #e6e6e6;
+}
+
+[data-theme='dark'] {
+  --background-primary: #202124;
+  --background-secondary: #303134;
+  --background-invert: #292929;
+  --text-primary: #fff;
+  --text-invert: #000;
+  --border: #292929;
+}
+
+body {
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  transition: all 0.5s;
+}
+
+/* buttons */
+
+.button {
+  text-decoration: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.button:hover {
+  filter: brightness(80%);
+}
+.button-lg {
+  font-size: 1.25rem;
+  padding: 0.6rem 0.9rem;
+}
+
+.button-primary {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.button-invert {
+  background-color: var(--background-invert);
+  color: var(--text-primary);
+}
+
+.button-fixed-width {
+  width: 6rem;
+}
+
+.button-100 {
+  width: 100%;
+}
+/* sizing */
+.container {
+  max-width: 60%;
+  margin-inline: auto;
+}
+
+/* margins */
+
+.mb-2 {
+  margin-bottom: 1rem;
+}

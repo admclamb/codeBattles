@@ -1,0 +1,59 @@
+.main {
+  margin-top: 4rem;
+  background-color: var(--background-primary);
+  display: grid;
+  grid-template-areas:
+    'battle battle battle'
+    'puzzle puzzle puzzle'
+    'stats stats opps'
+    'social social social'
+    'leadbrds leadbrds leaderbds'
+    'forum forum forum';
+  gap: 0.9rem;
+}
+
+.battle {
+  grid-area: battle;
+}
+.puzzle {
+  grid-area: puzzle;
+}
+.stats {
+  grid-area: stats;
+}
+.oppurtunities {
+  grid-area: opps;
+}
+.social {
+  grid-area: social;
+}
+.leaderboards {
+  grid-area: leadbrds;
+}
+.forum {
+  grid-area: forum;
+}
+.header {
+  font-size: 2rem;
+}
+
+.headerSm {
+  font-size: 1.5rem;
+}
+
+.description {
+  margin-bottom: 1rem;
+}
+
+.containerSplit {
+  display: flex;
+  width: 100%;
+}
+
+.containerSplit:first-child {
+  flex-grow: 2;
+}
+
+.containerSplit:last-child {
+  width: 25%;
+}
