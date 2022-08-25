@@ -1,6 +1,6 @@
 import React from 'react';
-import Footer from '../Footer/Footer';
-import Navbar from '../navigation/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
+import Navbar from '../components/navigation/Navbar/Navbar';
 import styles from './Layout.module.css';
 type Props = {
   children?: React.ReactNode;

@@ -1,5 +1,5 @@
 import PageRoutes from './pages/PageRoutes';
-import Layout from './components/Layout/Layout';
+import Layout from './Layout/Layout';
 import EditorWindow from './components/editor/EditorWindow.tsx/EditorWindow';
 import { useState } from 'react';
 
