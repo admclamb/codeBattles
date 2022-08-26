@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.container article {
+  width: 25rem;
+}
+
+.description {
+  margin-bottom: 1rem;
+}
