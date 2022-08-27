@@ -1,7 +1,7 @@
-import { expect, should } from 'chai';
-import { describe } from 'node:test';
-import { request } from 'supertest';
-
+import request from 'supertest';
+import { knex } from '../src/db/connection';
+import { expect } from 'chai';
+import 'jest';
 import { app } from '../src/App';
 
 /**
