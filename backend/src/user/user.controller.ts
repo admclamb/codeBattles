@@ -35,14 +35,28 @@ class UserController {
 
   public async create(req: Request, res: Response, next: NextFunction) {
     const { username, password, email } = req.body.data;
-    const encryptedPassword = await this.encryptPassword(password);
+    const emailExist = await this.emailExist(email);
+    const usernameExist = await this.usernameExist(username);
+    if (emailExist || usernameExist) {
+      return next({
+        status: 400,
+        message: 'User already exist.',
+      });
+    }
+    const encryptedPassword: string = await this.encryptPassword(password);
     if (!encryptedPassword) {
       return next({
         status: 500,
-        message: 'Error creating user. Please try again',
+        message: 'Error creating user.',
       });
     }
-    const user = new User(username, encryptedPassword, email);
+    const user = await service.create({
+      username,
+      password: encryptedPassword,
+      email,
+    });
+
+    next();
   }
 
   public destroy() {}
