@@ -4,6 +4,7 @@ import { service } from './user.service';
 import bcrypt from 'bcryptjs';
 import { hasValidProperties } from '../utils/hasValidProperties';
 import { User } from './User';
+import { userAuth } from '../auth/UserAuth';
 const { SALT = '5' } = process.env;
 class UserController {
   validProperties = ['username', 'email', 'password'];
@@ -55,8 +56,23 @@ class UserController {
       password: encryptedPassword,
       email,
     });
-
-    next();
+    const { user_id } = user;
+    const accessToken = userAuth.generateAccessToken(user_id);
+    const refreshToken = userAuth.generateRefreshToken(user_id);
+    return res
+      .cookie('access_token', accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+      })
+      .status(200)
+      .json({
+        data: {
+          username,
+          email,
+          user_id,
+          refreshToken,
+        },
+      });
   }
 
   public destroy() {}

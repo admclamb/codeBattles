@@ -9,3 +9,5 @@ router.router
   .post(controller.create)
   .delete(controller.destroy)
   .all(methodNotAllowed);
+
+export const userRouter = router;
