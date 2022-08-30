@@ -10,6 +10,6 @@ export const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/user', userRouter);
+app.use('/users', userRouter);
 app.use(notFound);
 app.use(errorHandler);
