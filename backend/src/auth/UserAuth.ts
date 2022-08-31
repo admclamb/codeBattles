@@ -34,11 +34,11 @@ class UserAuth {
   }
 
   public generateAccessToken(user_id: number) {
-    return this.generateToken(user_id, this.ACCESS_TOKEN_TIMEOUT).catch(error);
+    return this.generateToken(user_id, this.ACCESS_TOKEN_TIMEOUT);
   }
 
   public generateRefreshToken(user_id: number) {
-    return this.generateToken(user_id, this.REFRESH_TOKEN_TIMEOUT).catch(error);
+    return this.generateToken(user_id, this.REFRESH_TOKEN_TIMEOUT);
   }
 }
 

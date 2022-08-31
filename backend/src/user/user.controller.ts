@@ -76,8 +76,9 @@ async function create(req: Request, res: Response, next: NextFunction) {
 async function createToken(req: Request, res: Response, next: NextFunction) {
   const { user } = res.locals;
   const { user_id } = user;
-  const accessToken = userAuth.generateAccessToken(user_id);
-  const refreshToken = userAuth.generateRefreshToken(user_id);
+  const accessToken = await userAuth.generateAccessToken(user_id);
+  const refreshToken = await userAuth.generateRefreshToken(user_id);
+  console.log('AT: ', accessToken, 'RT: ', refreshToken);
   res.locals.accessToken = accessToken;
   res.locals.refreshToken = refreshToken;
   next();
@@ -86,6 +87,7 @@ async function createToken(req: Request, res: Response, next: NextFunction) {
 function formatResponse(req: Request, res: Response, next: NextFunction) {
   const { username, email } = res.locals.user;
   const { accessToken, refreshToken } = res.locals;
+  console.log(username, email, accessToken, refreshToken);
   if (!accessToken || !refreshToken) {
     return next({
       status: 500,
