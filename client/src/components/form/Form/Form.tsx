@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { FormContext } from '../../../context/FormContext';
+import Input from '../Input/Input';
 
 type Props = {
-  children: React.ReactNode;
-  handleSubmit: React.FormEventHandler<HTMLFormElement>;
+  data: {};
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
 };
 
-const Form = ({ children, handleSubmit }: Props) => {
-  return (
-    <form onSubmit={handleSubmit}>
-      <FormContext.Provider value={}>{children}</FormContext.Provider>
-    </form>
-  );
+const Form = ({ data, onChange, onSubmit }: Props) => {
+  const inputElements = [];
+  console.log(data);
+  for (const item in data) {
+    const value = data[item] || '';
+    const inputElement = (
+      <Input
+        name={item}
+        value={value}
+        label={item}
+        placeholder={item}
+        onChange={onChange}
+      />
+    );
+    inputElements.push(inputElement);
+  }
+  return <form onSubmit={onSubmit}>{inputElements}</form>;
 };
 
 export default Form;
