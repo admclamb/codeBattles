@@ -17,24 +17,28 @@ class UserAuth {
   }
 
   private async generateToken(user_id: number, expiresIn: string) {
-    if (!this.TOKEN_KEY) {
-      throw new Error('Key is missing');
+    try {
+      if (!this.TOKEN_KEY) {
+        throw new Error('Key is missing');
+      }
+      return sign(
+        {
+          data: user_id,
+        },
+        this.TOKEN_KEY,
+        { expiresIn }
+      );
+    } catch (error) {
+      return Promise.reject(error);
     }
-    return sign(
-      {
-        data: user_id,
-      },
-      this.TOKEN_KEY,
-      { expiresIn }
-    );
   }
 
-  public async generateAccessToken(user_id: number) {
-    return this.generateToken(user_id, this.ACCESS_TOKEN_TIMEOUT);
+  public generateAccessToken(user_id: number) {
+    return this.generateToken(user_id, this.ACCESS_TOKEN_TIMEOUT).catch(error);
   }
 
   public generateRefreshToken(user_id: number) {
-    return this.generateToken(user_id, this.REFRESH_TOKEN_TIMEOUT);
+    return this.generateToken(user_id, this.REFRESH_TOKEN_TIMEOUT).catch(error);
   }
 }
 

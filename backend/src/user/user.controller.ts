@@ -6,76 +6,127 @@ import { hasValidProperties } from '../utils/hasValidProperties';
 import { User } from './User';
 import { userAuth } from '../auth/UserAuth';
 const { SALT = '5' } = process.env;
-class UserController {
-  validProperties = ['username', 'email', 'password'];
 
-  private async emailExist(email: string) {
-    return (await service.readByEmail(email)) ? true : false;
-  }
+const VALID_PROPERTIES = ['username', 'email', 'password'];
 
-  private async usernameExist(username: string) {
-    return (await service.read(username)) ? true : false;
-  }
-
-  private async encryptPassword(password: string): Promise<string> {
-    let saltError;
-    const hashedPassword = await bcrypt
-      .hash(password, parseInt(SALT))
-      .catch(saltError);
-    if (!saltError) {
-      return hashedPassword;
-    }
-    return '';
-  }
-
-  public read() {}
-
-  public login() {}
-
-  public logout() {}
-
-  public async create(req: Request, res: Response, next: NextFunction) {
-    const { username, password, email } = req.body.data;
-    const emailExist = await this.emailExist(email);
-    const usernameExist = await this.usernameExist(username);
-    if (emailExist || usernameExist) {
-      return next({
-        status: 400,
-        message: 'User already exist.',
-      });
-    }
-    const encryptedPassword: string = await this.encryptPassword(password);
-    if (!encryptedPassword) {
-      return next({
-        status: 500,
-        message: 'Error creating user.',
-      });
-    }
-    const user = await service.create({
-      username,
-      password: encryptedPassword,
-      email,
+async function emailExist(req: Request, res: Response, next: NextFunction) {
+  const { email = '' } = req.body.data;
+  const foundEmail = await service.readByEmail(email);
+  if (foundEmail) {
+    return next({
+      status: 400,
+      message: 'Email is already in use.',
     });
-    const { user_id } = user;
-    const accessToken = userAuth.generateAccessToken(user_id);
-    const refreshToken = userAuth.generateRefreshToken(user_id);
-    return res
-      .cookie('access_token', accessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-      })
-      .status(200)
-      .json({
-        data: {
-          username,
-          email,
-          user_id,
-          refreshToken,
-        },
-      });
   }
-
-  public destroy() {}
+  next();
 }
 
-export const controller = new UserController();
+async function usernameExist(req: Request, res: Response, next: NextFunction) {
+  const { username = '' } = req.body.data;
+  const foundUsername = await service.read(username);
+  if (foundUsername) {
+    return next({
+      status: 400,
+      message: 'Username is already in use.',
+    });
+  }
+  next();
+}
+
+async function encryptPassword(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { password = '' } = req.body.data;
+  if (!password) {
+    return next({
+      status: 400,
+      message: 'A password is requried',
+    });
+  }
+  let saltError;
+  const hashedPassword = await bcrypt
+    .hash(password, parseInt(SALT))
+    .catch(saltError);
+  if (!hashedPassword || saltError) {
+    return next({
+      status: 500,
+      message: 'Error creating password.',
+    });
+  }
+  res.locals.hashedPassword = hashedPassword;
+  next();
+}
+
+async function create(req: Request, res: Response, next: NextFunction) {
+  const { username, email } = req.body.data;
+  const { hashedPassword: password } = res.locals;
+  const createdUser = await service.create({ username, email, password });
+  if (!createdUser) {
+    return next({
+      status: 500,
+      message: 'Error creating user.',
+    });
+  }
+  res.locals.user = createdUser;
+  next();
+}
+
+async function createToken(req: Request, res: Response, next: NextFunction) {
+  const { user } = res.locals;
+  const { user_id } = user;
+  const accessToken = userAuth.generateAccessToken(user_id);
+  const refreshToken = userAuth.generateRefreshToken(user_id);
+  res.locals.accessToken = accessToken;
+  res.locals.refreshToken = refreshToken;
+  next();
+}
+
+function formatResponse(req: Request, res: Response, next: NextFunction) {
+  const { username, email } = res.locals.user;
+  const { accessToken, refreshToken } = res.locals;
+  if (!accessToken || !refreshToken) {
+    return next({
+      status: 500,
+      message: 'Error creating tokens',
+    });
+  }
+  return res
+    .cookie('access_token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+    })
+    .status(200)
+    .json({
+      data: { username, email, refreshToken },
+    });
+}
+
+async function read(req: Request, res: Response, next: NextFunction) {
+  const user = await service.read(req.body.data.username);
+  const { username, password } = user;
+  if (!user) {
+    return next({
+      status: 404,
+      message: 'User not found',
+    });
+  }
+  res.status(200).json({ data: { username, password } });
+}
+
+export const controller = {
+  read: [asyncErrorBoundary(read)],
+  create: [
+    hasValidProperties(VALID_PROPERTIES),
+    asyncErrorBoundary(emailExist),
+    asyncErrorBoundary(usernameExist),
+    asyncErrorBoundary(encryptPassword),
+    asyncErrorBoundary(create),
+    asyncErrorBoundary(createToken),
+    formatResponse,
+  ],
+  destroy: [],
+  login: [],
+  logout: [],
+};

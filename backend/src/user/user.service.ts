@@ -5,10 +5,10 @@ class UserService {
   userTable: string = 'users';
 
   read(username: string): User {
-    return knex(this.userTable).select('*').where({ username });
+    return knex(this.userTable).select('*').where({ username }).first();
   }
   readByEmail(email: string): User {
-    return knex(this.userTable).select('*').where({ email });
+    return knex(this.userTable).select('*').where({ email }).first();
   }
 
   create(user: User) {
