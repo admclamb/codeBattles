@@ -13,7 +13,7 @@ const Signup = ({ setUser }) => {
     password: '',
   });
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<any>(null);
   const [buttonText, setButtonText] = useState('Continue');
   const onChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
@@ -42,9 +42,10 @@ const Signup = ({ setUser }) => {
         console.log('res: ', response);
         setUser(response);
       } else {
-        throw 'Passwords are not matching. Please try again.';
+        throw { message: 'Passwords are not matching. Please try again.' };
       }
     } catch (error: any) {
+      console.log(error);
       setError(error);
     } finally {
       setButtonText('Continue');

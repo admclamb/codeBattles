@@ -10,6 +10,7 @@ const { SALT = '5' } = process.env;
 const VALID_PROPERTIES = ['username', 'email', 'password'];
 
 async function emailExist(req: Request, res: Response, next: NextFunction) {
+  console.log(req.body.data);
   const { email = '' } = req.body.data;
   const foundEmail = await service.readByEmail(email);
   if (foundEmail) {
