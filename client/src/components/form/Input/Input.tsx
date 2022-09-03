@@ -1,5 +1,5 @@
 import React from 'react';
-
+import styles from './Input.module.css';
 type Props = {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   value: string;
@@ -11,7 +11,7 @@ type Props = {
 
 const Input = ({ onChange, value, type, placeholder, label, name }: Props) => {
   return (
-    <div>
+    <div className={styles.inputContainer}>
       <label htmlFor={label}>{label}</label>
       <input
         id={label}
