@@ -1,4 +1,15 @@
 .container {
-  max-width: 40%;
+  max-width: 30rem;
   margin: 4rem auto;
+  border: solid 1px var(--border);
+  border-radius: 3px;
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+}
+
+.footer {
+  margin-top: 1rem;
 }

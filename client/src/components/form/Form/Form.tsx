@@ -7,9 +7,27 @@ type Props = {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   submitText: string;
+  children: React.ReactNode;
+  footer: React.ReactNode;
 };
 
-const Form = ({ data, onChange, onSubmit, submitText }: Props) => {
+/*
+ * Form component that is created from an object.
+ *
+ * Params:
+ * @data: object used to create the form
+ * @children: additional inputs that are not a part of the original object
+ * @submitText: change the text value of the submit form
+ * @footer: append a react element at the footer of the form
+ */
+const Form = ({
+  data,
+  onChange,
+  onSubmit,
+  submitText,
+  children,
+  footer,
+}: Props) => {
   const inputElements = [];
   console.log(data);
   for (const item in data) {
@@ -21,6 +39,7 @@ const Form = ({ data, onChange, onSubmit, submitText }: Props) => {
         label={item}
         placeholder={item}
         onChange={onChange}
+        type={item === 'password' ? 'password' : 'text'}
       />
     );
     inputElements.push(inputElement);
@@ -28,12 +47,14 @@ const Form = ({ data, onChange, onSubmit, submitText }: Props) => {
   return (
     <form onSubmit={onSubmit}>
       {inputElements}
+      {children}
       <button
         type="submit"
         className={`button button-primary ${styles.button}`}
       >
         {submitText}
       </button>
+      {footer}
     </form>
   );
 };

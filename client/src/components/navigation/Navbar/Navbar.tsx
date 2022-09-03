@@ -11,7 +11,9 @@ const Navbar = ({ setTheme }: Props) => {
   const [user, setUser] = useState<{} | null>(null);
   return (
     <nav className={styles.nav}>
-      <h1 className={styles.navBrand}>CodeBattles</h1>
+      <Link to="/" className={styles.link}>
+        <h1 className={styles.navBrand}>CodeBattles</h1>
+      </Link>
       <ul className={styles.ul}>
         <li>
           <Link to="/">Battle</Link>

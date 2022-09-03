@@ -10,6 +10,11 @@
   border-right: solid 1px var(--border);
 }
 
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .navBrand {
   font-size: 1.5rem;
   margin: 1rem 0;
