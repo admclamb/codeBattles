@@ -29,7 +29,6 @@ const Form = ({
   footer,
 }: Props) => {
   const inputElements = [];
-  console.log(data);
   for (const item in data) {
     const value = data[item] || '';
     const inputElement = (

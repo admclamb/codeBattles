@@ -12,6 +12,9 @@
 .inputContainer input {
   padding: 0.7rem;
   border: solid 1px var(--border);
-  text-transform: capitalize;
   border-radius: 5px;
+}
+
+.inputContainer input::placeholder {
+  text-transform: capitalize;
 }

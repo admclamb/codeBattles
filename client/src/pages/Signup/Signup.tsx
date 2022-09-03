@@ -5,7 +5,8 @@ import Input from '../../components/form/Input/Input';
 import { User } from '../../ts/interfaces/User';
 import ErrorAlert from '../../error/ErrorAlert';
 import styles from './Signup.module.css';
-const Signup = () => {
+import { UserApi } from '../../api/UserApi';
+const Signup = ({ setUser }) => {
   const [signup, setSignup] = useState<User>({
     email: '',
     username: '',
@@ -37,8 +38,9 @@ const Signup = () => {
     setButtonText('Loading...');
     try {
       if (signup.password === confirmPassword) {
-        const response = await signup(signup);
-        console.log(response);
+        const response = await UserApi.signup(signup);
+        console.log('res: ', response);
+        setUser(response);
       } else {
         throw 'Passwords are not matching. Please try again.';
       }
