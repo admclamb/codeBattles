@@ -31,13 +31,14 @@ const Signup = ({ setUser }) => {
       Already have an account? <Link to="/login">Sign in here</Link>
     </p>
   );
-
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    console.log('in here!');
     setError(null);
     event.preventDefault();
     setButtonText('Loading...');
     try {
       if (signup.password === confirmPassword) {
+        console.log(signup);
         const response = await UserApi.signup(signup);
         console.log('res: ', response);
         setUser(response);
@@ -46,7 +47,7 @@ const Signup = ({ setUser }) => {
       }
     } catch (error: any) {
       console.log(error);
-      setError(error);
+      setError({ message: error });
     } finally {
       setButtonText('Continue');
     }

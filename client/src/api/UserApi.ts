@@ -1,16 +1,17 @@
 import { API } from './Axios';
 import { User } from '../ts/interfaces/User';
 import { Login } from '../ts/interfaces/Login';
+import { axiosError } from './axiosError';
 export class UserApi {
   static async signup(user: User) {
-    return await API.post('/users', user);
+    return await API.post('/users', { data: user }).catch(axiosError);
   }
 
   static async login(login: Login) {
-    return await API.post('/users/login', login);
+    return await API.post('/users/login', { data: login });
   }
   static async logout(logout: any) {
-    return await API.post('/users/logout', logout);
+    return await API.post('/users/logout', { data: logout });
   }
 
   static async deleteUser(user: any) {

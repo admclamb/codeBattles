@@ -9,7 +9,8 @@ function App() {
   const [code, setCode] = useState('// some comment');
   const [theme, setTheme] = useState<string>('light');
   const [user, setUser] = useState<user>({});
-  console.log(theme);
+
+  useEffect(() => {}, [user]);
   return (
     <div data-theme={theme} className="App">
       <UserContext.Provider value={user}>
