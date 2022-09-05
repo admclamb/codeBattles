@@ -6,7 +6,7 @@ class UserAuth {
   REFRESH_TOKEN_TIMEOUT: string = '10d';
   public authorize(token: string) {
     if (!this.TOKEN_KEY) {
-      throw new Error('Key is missing');
+      throw 'Key is missing';
     }
     try {
       const data = verify(token, this.TOKEN_KEY);

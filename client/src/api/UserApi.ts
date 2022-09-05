@@ -1,4 +1,4 @@
-import { API } from './Axios';
+import { API } from './API';
 import { User } from '../ts/interfaces/User';
 import { Login } from '../ts/interfaces/Login';
 import { axiosError } from './axiosError';
@@ -16,5 +16,9 @@ export class UserApi {
 
   static async deleteUser(user: any) {
     return await API.delete('/users');
+  }
+
+  static async loginToken(refreshToken: string) {
+    return await API.post('/users/login/token');
   }
 }

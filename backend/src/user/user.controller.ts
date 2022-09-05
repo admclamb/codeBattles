@@ -118,6 +118,16 @@ async function read(req: Request, res: Response, next: NextFunction) {
   res.status(200).json({ data: { username, password } });
 }
 
+function authTokens(req: Request, res: Response, next: NextFunction) {
+  const { access_token } = req.cookies;
+  const { refreshToken } = req.body.data;
+  if (access_token) {
+    const data = userAuth.authorize(access_token);
+  }
+}
+
+function login(req: Request, res: Response, next: NextFunction) {}
+
 export const controller = {
   read: [asyncErrorBoundary(read)],
   create: [
@@ -131,5 +141,6 @@ export const controller = {
   ],
   destroy: [],
   login: [],
+  loginToken: [authTokens, login, asyncErrorBoundary(createToken)],
   logout: [],
 };
