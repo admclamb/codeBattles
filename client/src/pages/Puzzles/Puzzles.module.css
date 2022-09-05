@@ -1,0 +1,56 @@
+.container {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 15%;
+  padding-inline: 1rem;
+}
+
+.main {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  height: 80%;
+}
+
+.editor,
+.aside {
+  height: 100%;
+  border: solid 1px var(--border);
+}
+
+.editor {
+  width: 55%;
+}
+
+.aside {
+  width: 45%;
+  padding: 1rem;
+}
+
+.footer {
+  padding: 1rem;
+  display: flex;
+  border-top: solid 1px var(--border);
+}
+
+.submitButton {
+  margin-left: auto;
+  border-radius: 3px;
+}
+
+.bodyNav {
+  list-style-type: none;
+  display: flex;
+}
+.bodyNav li:not(:last-child) {
+  margin-right: 2rem;
+}
+
+.test {
+  margin-top: auto;
+  border-top: solid 1px var(--border);
+}

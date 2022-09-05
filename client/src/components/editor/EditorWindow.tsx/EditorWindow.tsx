@@ -12,17 +12,13 @@ const EditorWindow = ({ code, language, theme, codeSetup, setCode }: Props) => {
     setCode(value);
   };
   return (
-    <div className="w-100 h-100">
-      <Editor
-        height="85vh"
-        width="100%"
-        language={language || 'javascript'}
-        theme={theme}
-        defaultValue={codeSetup}
-        value={code}
-        onChange={handleEditorChange}
-      />
-    </div>
+    <Editor
+      language={language || 'javascript'}
+      theme={theme}
+      defaultValue={codeSetup}
+      value={code}
+      onChange={handleEditorChange}
+    />
   );
 };
 
