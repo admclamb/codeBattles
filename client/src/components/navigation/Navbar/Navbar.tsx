@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import SignedInNav from '../SignedInNav/SignedInNav';
 import NotSignedInNav from '../NotSignedInNav/NotSignedInNav';
 import styles from './Navbar.module.css';
+import { UserContext } from '../../../context/UserContext';
 type Props = {
   setTheme: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const Navbar = ({ setTheme }: Props) => {
-  const [user, setUser] = useState<{} | null>(null);
+  const user = useContext(UserContext);
   return (
     <nav className={styles.nav}>
       <Link to="/" className={styles.link}>
