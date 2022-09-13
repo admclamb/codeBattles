@@ -1,21 +1,56 @@
 import React, { useState } from 'react';
 import Card from '../../components/card/Card/Card';
 import EditorWindow from '../../components/editor/EditorWindow.tsx/EditorWindow';
+import { ProblemsApi } from '../../api/ProblemApi';
 import styles from './Puzzles.module.css';
 type Props = {};
 
 const Puzzles = (props: Props) => {
+  /*
+    Anser for puzzle:
+
+    const Solution = (n) => {
+  const output = [];
+  for (let i=0; i<=n; i++) {
+    let currElement = '';
+    if (i % 3 === 0) {
+      currElement += 'Fizz';
+    }
+    if (i % 5 === 0) {
+      currElement += 'Buzz';
+    }
+    if (!currElement.length) {
+      currElement += i;
+    }
+    output.push(currElement);
+  }
+  return output;
+}
+  
+  */
   const config = {
-    code: `
-      const Solution = (array) => {
-        // Solution goes here
-      }
+    code: `const solution = (n) => {
+  // Solution goes here
+}
     `,
     language: 'javascript',
     theme: 'light',
     codeSetup: '// enter the new code here',
   };
   const [code, setCode] = useState('');
+  const [language, setLanguage] = useState('javascript');
+  const [input, setInput] = useState('');
+  const [title, setTitle] = useState('FizzBuzz');
+  const question_id = 1;
+  const handleSubmit = async () => {
+    const response = await ProblemsApi.checkSolution({
+      code,
+      language,
+      data_input: input,
+      title,
+      question_id,
+    });
+  };
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -28,6 +63,7 @@ const Puzzles = (props: Props) => {
             language={config.language}
             theme={config.theme}
             codeSetup={config.codeSetup}
+            setCode={setCode}
           />
         </div>
         <div className={styles.aside}>
@@ -47,7 +83,7 @@ const Puzzles = (props: Props) => {
             <div className="body">
               <p>
                 Given a positive integer n, return an array of strings from 1 to
-                n - 1 and has the following:
+                n and has the following:
               </p>
               <ul>
                 <li>
@@ -81,7 +117,10 @@ const Puzzles = (props: Props) => {
         </div>
       </section>
       <footer className={styles.footer}>
-        <button className={`button button-primary ${styles.submitButton}`}>
+        <button
+          className={`button button-primary ${styles.submitButton}`}
+          onClick={handleSubmit}
+        >
           Run
         </button>
       </footer>
