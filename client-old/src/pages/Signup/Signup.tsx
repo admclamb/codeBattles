@@ -27,8 +27,11 @@ const Signup = ({ setUser }) => {
     }
   };
   const footerText = (
-    <p className={styles.footer}>
-      Already have an account? <Link to="/login">Sign in here</Link>
+    <p className="mt-2">
+      Already have an account?{' '}
+      <Link to="/login" className="text-green-500">
+        Sign in here
+      </Link>
     </p>
   );
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -55,7 +58,7 @@ const Signup = ({ setUser }) => {
   return (
     <div className={styles.container}>
       {error && <ErrorAlert error={error} />}
-      <h1 className={styles.title}>CodeBattles</h1>
+      <h1 className="text-center text-xl font-semibold">CodeBattles</h1>
       <Form
         data={signup}
         onChange={onChange}
