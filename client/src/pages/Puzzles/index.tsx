@@ -1,17 +1,17 @@
+import React, { useState } from 'react';
 import ButtonDefault from '@/components/Button/ButtonDefault/ButtonDefault';
 import Card from '@/components/Card/Card';
 import Layout from '@/components/Layout/Layout';
-import { User } from '@/ts/types/User';
 import Head from 'next/head';
-import Link from 'next/link';
-import { useState } from 'react';
+import { User } from '@/ts/types/User';
+type Props = {};
 
-export default function Home() {
+const Puzzles = (props: Props) => {
   const [user, setUser] = useState<User | null>(null);
   return (
     <>
       <Head>
-        <title>Home | Code Battles</title>
+        <title>Puzzles | Code Battles</title>
       </Head>
       <Layout user={user}>
         <div className="container mx-auto">
@@ -28,4 +28,6 @@ export default function Home() {
       </Layout>
     </>
   );
-}
+};
+
+export default Puzzles;
