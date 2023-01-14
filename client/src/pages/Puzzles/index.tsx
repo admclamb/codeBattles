@@ -4,6 +4,8 @@ import Card from '@/components/Card/Card';
 import Layout from '@/components/Layout/Layout';
 import Head from 'next/head';
 import { User } from '@/ts/types/User';
+import styles from './Puzzles.module.css';
+
 type Props = {};
 
 const Puzzles = (props: Props) => {
@@ -13,18 +15,13 @@ const Puzzles = (props: Props) => {
       <Head>
         <title>Puzzles | Code Battles</title>
       </Head>
-      <Layout user={user}>
-        <div className="container mx-auto">
-          <section className="grid grid-cols-4 gap-4">
-            <Card classes="col-span-2">
-              <h3 className="text-xl font-semibold">Puzzles</h3>
-              <p className="mb-4">Practice coding puzzles on your own</p>
-              <ButtonDefault type="link" link="/Puzzles">
-                Go
-              </ButtonDefault>
-            </Card>
-          </section>
-        </div>
+      <Layout user={user} padding="p-6" classes={styles.container}>
+        <Card>
+          <h3>Code</h3>
+        </Card>
+        <Card>
+          <h3 className="text-lg font-semibold">1. FizzBuzz</h3>
+        </Card>
       </Layout>
     </>
   );
