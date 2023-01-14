@@ -1,0 +1,5 @@
+.codeContainer {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  height: 100%;
+}
